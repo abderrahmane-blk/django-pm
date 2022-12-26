@@ -22,7 +22,7 @@ class ProjectStatus(models.IntegerChoices):
 class Project(models.Model):
 
     title = models.CharField(max_length=200)
-    description =models.TextField
+    desc =models.TextField(default = 'nothing is specified')
     created_at =models.DateTimeField(auto_now_add=True)
     updated_at =models.DateTimeField(auto_now=True , null=True)
     
@@ -40,12 +40,12 @@ class Project(models.Model):
 
 class Task(models.Model):
 
-    description =models.TextField()
+    desc =models.TextField()
     is_completed = models.BooleanField(default=False)
     project_id =models.ForeignKey(Project , models.CASCADE)
 
     def __str__(self) -> str:
-        return self.description
+        return self.desc
 
 
 
