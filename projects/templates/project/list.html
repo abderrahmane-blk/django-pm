@@ -6,7 +6,7 @@
 
 <ul>
     {% for proj in object_list %}
-        <li>{{project.title}}</li>
+        <li>{{proj.title}} --<a href={%url 'Project_update' proj.id %}>edit</a></li>
 
     {%empty%}
         <li>{% trans "there are no objects to show" %}</li>

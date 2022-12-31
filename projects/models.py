@@ -27,7 +27,7 @@ class Project(models.Model):
     updated_at =models.DateTimeField(auto_now=True , null=True)
     
     category =models.ForeignKey(Category , models.PROTECT)
-    user =models.ForeignKey(AUTH_USER_MODEL , models.CASCADE)
+    user =models.ForeignKey(AUTH_USER_MODEL , models.CASCADE , null=True)
     
     status =models.IntegerField(
         choices = ProjectStatus.choices ,
