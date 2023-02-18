@@ -2,18 +2,76 @@
 {% block content %}
 <h3>edit project form</h3>
 
-<form method ='POST'>
-{% csrf_token %}
-{{form}}
-<input type="submit"  value="save" >
+<nav aria-label="breadcrumb">
+    <ol aria-label="breadcrumb">
+        <li aria-label="breadcrumb-item aactive" aria-current="page">
+            <h5>
+                {{object.title}}
+            </h5>
+        </nav>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-md-3 ">
+
+        <div class="card ">
+            <div class="card-body">
+
+                <form method ='POST'>
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="mb-3">{{field}}</div>
+                    {% endfor %}
 
 
-</form>
+                    <div class="card-footer  ">
+                        <div class="row justify-content-end">
+                            <div class="col-12 ">
 
-<a href="{% url 'Project_delete' object.id %}" >delete the project</a>
+                                    <input class="btn btn-outline-success w-100" type="submit"  value="save" >
+                            </div>
+                            <div class="col-12 ">
+
+                                    <a href="{% url 'Project_delete' object.id %}" >   
+                                        <div class="d-flex">
+                                            <p>delete</p>
+                                            <i class="bi bi-trash"></i>
+                                        </div>
+                                    </a>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    </form>
+                    
+                    
+
+            </div>
+        </div>
+
+
+    </div>
+    <div class="col-md-9 ">
+        
+        {% include 'project/task.html' with project=object %}
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
         
 
-{% include 'project/task.html' with project=object %}
 
 
 {% endblock content %}

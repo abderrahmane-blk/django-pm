@@ -1,14 +1,15 @@
 <h3>all the tasks of the project</h3>
-<ol>
+<ol class="list-group">
     {%for task in project.task_set.all %}
 
-        <li>{{task}} 
+        <li class="list-group-item d-flex">
            
-            <form method = 'POST' action ={% url 'task_update' task.id %}>
+            <form method = 'POST' action ={% url 'task_update' task.id %} class="my-auto me-2" >
             {%csrf_token%}
         
         
             <input
+                class="form-check-input"
                  type="checkbox" 
                  name="is_completed"
                  {% if task.is_completed %} checked {% endif %}
@@ -16,11 +17,13 @@
                  >
         
         </form>
+        <p class="my-auto me-auto">
+            {{task}}
+        </p>
         <form method = 'POST' action ={% url 'task_delete' task.id %}>
             {%csrf_token%}
-            <input type="submit" value="delete"
-                
-                 >
+            <button type="submit" class="btn"><i class="bi bi-trash text-danger"></i>                
+            </button>
         
         </form>
         </li>
@@ -30,13 +33,16 @@
 
 <h4>make task</h4>
 
-<form method = 'POST' action ={% url 'task_create'%}>
+<div class="card mt-2">
+
+<form method = 'POST' action ={% url 'task_create'%} class="d-flex">
     {%csrf_token%}
-
-    <input type='hidden' value={{project.id}} name='project_id' >
-    <input type='text' name='desc' placeholder='new task'>
-    <input type='submit' value='save' >
-
+    <div class="input-group">
+        <input type='hidden' value={{project.id}} name='project_id' >
+        <input type='text' name='desc' placeholder='new task' class="form-control" required>
+        <input type='submit' value='save' class="btn btn-outline-dark"  >
+    </div>
+</div>
 
 
 

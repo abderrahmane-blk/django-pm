@@ -1,0 +1,77 @@
+{% load i18n %}
+
+<nav class="navbar navbar-expand-lg bg-success mb-3">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">{% trans "project management" %}</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href={% url 'Projects_list' %}>{% trans "projects list" %}</a>
+          </li>
+          {% endif %}
+          <!--   not useful for now
+
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
+          </li>
+          -->
+          
+
+        </ul>
+        
+
+
+
+          {% if user.is_authenticated %}
+          <ul class="navbar-nav me-3">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Dropdown
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">{{user.username}}</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">logout</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </li>
+        </ul>
+
+          <!-- the search field  -->
+            <form method="GET" action="{% url 'Projects_list' %}"  class="d-flex" >
+              <div class="input-group">
+                <input
+                  type="text"
+                  name="q"
+                  class="form-control"
+                  placeholder="{% trans "search for a project" %}"
+                  value = "{{ request.GET.q }}"
+                >
+                </input>
+                <button class="btn btn-outline-light" type="submit" >
+                  <i class="bi bi-search"></i>
+                </button>
+
+              </div>
+
+            </form>
+          {% else %}
+            <a href="{% url 'login' %}"><button  class="btn btn-outline-light">{% trans "login" %}</button></a>
+
+          {% endif %}
+        
+
+
+      </div>
+    </div>
+  </nav>

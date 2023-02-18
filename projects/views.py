@@ -2,22 +2,41 @@ from django.shortcuts import render
 from django.urls import reverse_lazy ,reverse
 from . import models , forms
 from django.views.generic import ListView , CreateView , UpdateView ,DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 #the projects
 
-class ProjectListViews(ListView):
+class ProjectListViews(LoginRequiredMixin,ListView):
     model = models.Project
     template_name = 'project/list.html'
 
-class ProjectCreateView(CreateView):
+    #this is for the pagination
+    paginate_by = 3 
+
+    #this next func is for the search bar
+
+    def get_queryset(self):
+        query_set= super().get_queryset()
+        where={}
+        q = self.request.GET.get("q" , None)
+        if q:
+            where['title__icontains'] = q
+        return query_set.filter(**where)
+
+
+        
+
+
+
+class ProjectCreateView(LoginRequiredMixin,CreateView):
     model = models.Project
     template_name = 'project/create.html'
     form_class = forms.ProjectFormView
     success_url = reverse_lazy('Projects_list')
 
 
-class ProjectUpdateView(UpdateView):
+class ProjectUpdateView(LoginRequiredMixin,UpdateView):
     model = models.Project
     template_name = 'project/update.html'
     form_class = forms.ProjectUpdateFormView
@@ -27,7 +46,7 @@ class ProjectUpdateView(UpdateView):
 
 
 
-class ProjectDeleteView(DeleteView):
+class ProjectDeleteView(LoginRequiredMixin,DeleteView):
     model = models.Project
     template_name='project/delete.html'
     success_url =  reverse_lazy('Projects_list')
@@ -36,7 +55,7 @@ class ProjectDeleteView(DeleteView):
 #now the tasks
 
 
-class ProjectTaskView(CreateView):
+class ProjectTaskView(LoginRequiredMixin,CreateView):
     model = models.Task
     fields =['project_id' , 'desc']
     
@@ -46,7 +65,7 @@ class ProjectTaskView(CreateView):
         return reverse('Project_update' ,args=[self.object.project_id.id])
 
 
-class ProjectTaskEditView(UpdateView):
+class ProjectTaskEditView(LoginRequiredMixin,UpdateView):
     model = models.Task
     fields =['is_completed']
     
@@ -56,7 +75,7 @@ class ProjectTaskEditView(UpdateView):
         return reverse('Project_update' ,args=[self.object.project_id.id])
 
 
-class ProjectTaskDeleteView(DeleteView):
+class ProjectTaskDeleteView(LoginRequiredMixin,DeleteView):
     model = models.Task
 
     def get_success_url(self) -> str:

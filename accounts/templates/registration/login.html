@@ -2,22 +2,31 @@
 {% block content %}
 {% load i18n %}
 
+<!--  
+by the way
+u can use this superuser
+name :abdu
+email :ssss@gmail.com  , i am not sure about the email though
+password : password
+
+-->
+
 <div class="row justify-content-center my-3">
 
     <div class="card col-md-6 gx-0  ">
     
         <div class="card-header container-fluid bg-success text-white">
             <h4>
-                {% trans "create new project" %}
+                {% trans "login" %}
             </h4>
         </div>
         <div class="card-body">
             <form method='POST'>
                 {%csrf_token%}
 
-                {% include 'common/forms.html' %}
+                {% include 'common/forms.html' with form=form %}
                 
-               <input class="  btn btn-outline-success " type="submit" value="save"> </input>
+               <input class="  btn btn-outline-success " type="submit" value="login"> </input>
             </form>
 
         </div>
@@ -34,7 +43,3 @@
 
 
 {% endblock content %}
-
-
-
-
