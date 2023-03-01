@@ -40,9 +40,11 @@
               </a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#">{{user.username}}</a></li>
-                <li><a class="dropdown-item" href="{% url 'logout' %}">logout</a></li>
+                <li><a class="dropdown-item" href="{% url 'profile' %}">profile</a></li>
+
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">logout</a></li>
+
               </ul>
             </li>
         </ul>
@@ -67,6 +69,7 @@
             </form>
           {% else %}
             <a href="{% url 'login' %}"><button  class="btn btn-outline-light">{% trans "login" %}</button></a>
+            <a href="{% url 'register' %}"><button  class="btn btn-outline-light mx-1">{% trans "register" %}</button></a>
 
           {% endif %}
         
