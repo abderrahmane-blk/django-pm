@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm ,UserCreationForm , UserChangeForm
 from django import forms 
 from django.contrib.auth.models import User
-
+from django.utils.translation import gettext as _
 
 must_attributes={"class" : "form-control"}
 
@@ -10,42 +10,42 @@ class UserLoginForm(AuthenticationForm):
         super(UserLoginForm ,self).__init__(*args, **kwargs)
 
     username = forms.CharField(
-        label="username",
+        label=_("username"),
         widget = forms.TextInput(attrs=must_attributes)
     )
     password = forms.CharField(
-        label="password",
+        label=_("password"),
         widget = forms.PasswordInput(attrs=must_attributes)
     )
 
 class UserRegisterForm(UserCreationForm):
 
     first_name = forms.CharField(
-        label="first name",
+        label=_("first name"),
         widget = forms.TextInput(attrs=must_attributes)
     )
     last_name = forms.CharField(
-        label="last name",
+        label=_("last name"),
         widget = forms.TextInput(attrs=must_attributes)
     )
 
     username = forms.CharField(
-        label="username",
+        label=_("username"),
         widget = forms.TextInput(attrs=must_attributes)
     )
 
     email = forms.EmailField(
-        label="email",
+        label=_("email"),
         widget = forms.EmailInput(attrs=must_attributes)
     )
 
     password1 = forms.CharField(
-        label="password",
+        label=_("password"),
         strip =False,
         widget = forms.PasswordInput(attrs=must_attributes)
     )
     password2 = forms.CharField(
-            label="confirm password",
+            label=_("confirm password"),
             strip =False,
             widget = forms.PasswordInput(attrs=must_attributes)
         )
@@ -58,6 +58,13 @@ class ProfileForm(UserChangeForm):
     class Meta:
         model = User
         fields = ['first_name','last_name','username','email']
+        labels ={
+            'first_name' :_("first_name"),
+            'last_name' :_("last_name"),
+            'username' :_("username"),
+            'email':_("email")
+
+        }
         widgets ={
             'first_name':forms.TextInput(attrs=must_attributes),
             'last_name':forms.TextInput(attrs=must_attributes),
